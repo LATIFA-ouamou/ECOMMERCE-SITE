@@ -11,7 +11,6 @@ export default function Login() {
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
 
-        {/* Email */}
         <div className="flex items-center border rounded-lg px-3 mb-4">
           <Mail size={18} className="text-gray-400" />
           <input
@@ -20,8 +19,6 @@ export default function Login() {
             className="w-full p-2 outline-none"
           />
         </div>
-
-        {/* Password */}
         <div className="flex items-center border rounded-lg px-3 mb-4">
           <Lock size={18} className="text-gray-400" />
           <input
