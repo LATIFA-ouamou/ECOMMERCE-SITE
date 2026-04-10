@@ -1,25 +1,24 @@
-import Categories from "./components/home/Categories";
-import FeaturedProducts from "./components/home/FeaturedProducts";
-import Hero from "./components/home/Hero";
-import { Products } from "./components/home/Products";
-import { Subscribe } from "./components/home/Subscribe";
-import { Footer } from "./components/layouts/Footer";
-import { Navbar } from "./components/layouts/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./components/auth/login";
+import Register from "./components/auth/Register";
+import MainLayout from "./components/layouts/MainLayout";
+import ProductCard from "./components/product/ProductCard";
 
-function App() {
+export default function AppRoutes() {
   return (
-    <>
-    <Navbar/>
-      <Hero/>
-      <Categories></Categories>
-      <FeaturedProducts></FeaturedProducts>
-      
-      <Subscribe></Subscribe>
-      <Products></Products>
-      <Footer></Footer>
-    </>
+    <BrowserRouter>
+      <Routes>
+
+        <Route element={<MainLayout />}>
+
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/productCard" element={<ProductCard />} />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
   );
-
 }
-
-export default App;

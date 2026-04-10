@@ -26,7 +26,7 @@ const floatVariants = {
   },
 };
 
-export default function PlantProductCard() {
+export default function ProductCard() {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [wishlist, setWishlist] = useState(false);
