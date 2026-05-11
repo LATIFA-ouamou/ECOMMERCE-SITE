@@ -1,3 +1,4 @@
+
 import { Star, Heart } from "lucide-react";
 
 /**
@@ -104,6 +105,6 @@ export default function ProductCard({ product: p, liked = false, added = false }
         </div>
 
       </div>
-    </div>
+</div>
   );
 }

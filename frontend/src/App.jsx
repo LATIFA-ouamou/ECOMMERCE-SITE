@@ -2,8 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import MainLayout from "./components/layouts/MainLayout";
 import ProductCard from "./components/product/ProductCard";
-import ShopPage from "./pages/Shop";
+
 import AuthPage from "./pages/AuthPage";
+import Shop from "./pages/Shop";
 
 export default function AppRoutes() {
   return (
@@ -14,7 +15,10 @@ export default function AppRoutes() {
 
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<AuthPage />} />
-          <Route path="/shopPage" element={<ShopPage />} />
+
+          
+           <Route path="/Shop" element={<Shop/>} />
+
         </Route>
 
       </Routes>

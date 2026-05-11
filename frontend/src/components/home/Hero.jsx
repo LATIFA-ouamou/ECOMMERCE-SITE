@@ -2,7 +2,7 @@ export default function Hero() {
   return (
     <section className="w-full py-10 px-6 md:px-16 bg-[#E8F5E9]">
       
-      <div className="relative max-w-7xl mx-auto rounded-xl overflow-hidden">
+      <div className="relative max-w-9xl mx-auto rounded-xl overflow-hidden">
         
        
         <img

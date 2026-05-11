@@ -164,7 +164,10 @@ export default function ProductFilter({
   );
 }
 
-/* ── tiny helper ── */
 function Divider() {
-  return <div className="h-px bg-stone-100" />;
+  return (
+    <div className="border-t border-stone-100" />       
+  );
+
+      
 }
