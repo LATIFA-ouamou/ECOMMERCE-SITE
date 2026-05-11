@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+
+
 export function Navbar() {
   return (
     <header className="bg-white shadow-sm">
@@ -8,16 +11,16 @@ export function Navbar() {
         </h1>
 
         <nav className="hidden md:flex gap-8 text-gray-600 text-sm">
-          <a href="#">Home</a>
-          <a href="#">Shop</a>
-          <a href="#">Features</a>
-          <a href="#">Blog</a>
-          <a href="#">Contact</a>
+          <Link to ="/">Home</Link>
+          <Link to ="/shopPage">Shop</Link>
+          <Link to ="/features">Features</Link>
+          <Link to ="/blogs">Blog</Link>
+          <Link to ="/contact">Contact</Link>
         </nav>
 
-        <button className="bg-green-600 text-white px-4 py-2 rounded-md text-sm">
+        <Link to="/auth" className="bg-green-600 text-white px-4 py-2 rounded-md text-sm">
           Login Now
-        </button>
+        </Link>
       </div>
     </header>
   );
