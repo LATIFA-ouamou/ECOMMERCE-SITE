@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Star, Droplets, Sun, Leaf, ChevronRight, Minus, Plus, Heart, ShoppingCart, Check } from "lucide-react";
-import { products } from "../data/products";
-import { useCart } from "../context/AppContext";
 
 export default function ProductPage({ product: p, onNavigate }) {
   const { addToCart, wishlist, toggleWishlist } = useCart();

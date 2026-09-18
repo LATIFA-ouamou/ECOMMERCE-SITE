@@ -1,14 +1,6 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-/**
- * LoginForm
- * Props:
- *  - email    : string
- *  - password : string
- *  - error    : string
- *  - loading  : boolean
- */
 export default function LoginForm({
   email    = "",
   password = "",
@@ -20,7 +12,6 @@ export default function LoginForm({
   return (
     <div className="space-y-4">
 
-      {/* ── Email ── */}
       <div>
         <label className="text-xs font-medium text-stone-500 block mb-1.5">
           Email address
@@ -34,7 +25,6 @@ export default function LoginForm({
         />
       </div>
 
-      {/* ── Password ── */}
       <div>
         <label className="text-xs font-medium text-stone-500 block mb-1.5">
           Password
@@ -57,7 +47,6 @@ export default function LoginForm({
         </div>
       </div>
 
-      {/* ── Forgot password ── */}
       <div className="flex justify-end">
         <button
           type="button"
@@ -67,7 +56,7 @@ export default function LoginForm({
         </button>
       </div>
 
-      {/* ── Error message ── */}
+     
       {error && (
         <div className="flex items-start gap-2.5 bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl">
           <span className="mt-0.5 flex-shrink-0">⚠️</span>
@@ -75,7 +64,7 @@ export default function LoginForm({
         </div>
       )}
 
-      {/* ── Submit ── */}
+  
       <button
         type="submit"
         disabled={loading}

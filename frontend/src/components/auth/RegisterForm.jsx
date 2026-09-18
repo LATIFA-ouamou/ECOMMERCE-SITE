@@ -26,7 +26,6 @@ export default function RegisterForm({ error = "", loading = false }) {
   return (
     <div className="space-y-4">
 
-      {/* ── Full name ── */}
       <div>
         <label className="text-xs font-medium text-stone-500 block mb-1.5">Full name</label>
         <input
@@ -37,7 +36,6 @@ export default function RegisterForm({ error = "", loading = false }) {
         />
       </div>
 
-      {/* ── Email ── */}
       <div>
         <label className="text-xs font-medium text-stone-500 block mb-1.5">Email address</label>
         <input
@@ -48,7 +46,6 @@ export default function RegisterForm({ error = "", loading = false }) {
         />
       </div>
 
-      {/* ── Password ── */}
       <div>
         <label className="text-xs font-medium text-stone-500 block mb-1.5">Password</label>
         <div className="relative">

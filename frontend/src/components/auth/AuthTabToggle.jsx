@@ -1,8 +1,4 @@
-/**
- * AuthTabToggle
- * Props:
- *  - mode : "login" | "register"
- */
+
 export default function AuthTabToggle({ mode = "login" }) {
   return (
     <div className="flex bg-stone-100 rounded-xl p-1 mb-6">

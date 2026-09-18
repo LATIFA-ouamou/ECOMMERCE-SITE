@@ -1,80 +1,169 @@
+import { useMemo, useState } from "react";
 
-import ShopHeader from './../components/product/ShopHeader';
-import ProductFilter from './../components/product/ProductFilter';
-import ProductToolbar from './../components/product/ProductToolbar';
-import ProductList from './../components/product/ProductList';
-/* ─────────────────────────────────────────────
-   Static mock data — replace with real props
-   or hook up your context / API calls here
-───────────────────────────────────────────── */
-const MOCK_CATEGORIES = ["all", "indoor", "outdoor", "medicinal", "succulents"];
+import ShopHeader from "../components/product/ShopHeader";
+import ProductFilter from "../components/product/ProductFilter";
+import ProductToolbar from "../components/product/ProductToolbar";
+import ProductList from "../components/product/ProductList";
 
-const MOCK_COUNTS = {
-  all: 12, indoor: 5, outdoor: 3, medicinal: 2, succulents: 2,
-};
-
-const MOCK_PRODUCTS = [
-  { id: 1,  name: "Monstera Deliciosa", category: "indoor",    emoji: "🌿", price: 45,  oldPrice: null, badge: "New",  care: "easy",   water: "Low",      light: "Medium",   inStock: true,  rating: 4.8, reviews: 124 },
-  { id: 2,  name: "Fiddle Leaf Fig",    category: "indoor",    emoji: "🌳", price: 89,  oldPrice: 110,  badge: "Sale", care: "hard",   water: "Medium",   light: "Bright",   inStock: true,  rating: 4.5, reviews: 89  },
-  { id: 3,  name: "Lavender",           category: "medicinal", emoji: "💜", price: 22,  oldPrice: null, badge: null,   care: "easy",   water: "Low",      light: "Full Sun", inStock: true,  rating: 4.9, reviews: 203 },
-  { id: 4,  name: "Snake Plant",        category: "indoor",    emoji: "🌱", price: 35,  oldPrice: null, badge: null,   care: "easy",   water: "Very Low", light: "Low",      inStock: true,  rating: 4.7, reviews: 318 },
-  { id: 5,  name: "Bird of Paradise",   category: "outdoor",   emoji: "🌺", price: 120, oldPrice: null, badge: "Rare", care: "medium", water: "Medium",   light: "Bright",   inStock: false, rating: 4.6, reviews: 47  },
-  { id: 6,  name: "Echeveria",          category: "succulents",emoji: "🪴", price: 18,  oldPrice: null, badge: null,   care: "easy",   water: "Very Low", light: "Full Sun", inStock: true,  rating: 4.8, reviews: 156 },
-  { id: 7,  name: "Peace Lily",         category: "indoor",    emoji: "🌸", price: 38,  oldPrice: null, badge: "New",  care: "easy",   water: "Medium",   light: "Low",      inStock: true,  rating: 4.6, reviews: 91  },
-  { id: 8,  name: "Aloe Vera",          category: "medicinal", emoji: "🌵", price: 25,  oldPrice: 30,   badge: "Sale", care: "easy",   water: "Low",      light: "Bright",   inStock: true,  rating: 4.9, reviews: 445 },
-  { id: 9,  name: "Bougainvillea",      category: "outdoor",   emoji: "🌷", price: 55,  oldPrice: null, badge: null,   care: "medium", water: "Low",      light: "Full Sun", inStock: true,  rating: 4.4, reviews: 62  },
-  { id: 10, name: "ZZ Plant",           category: "indoor",    emoji: "🍃", price: 42,  oldPrice: null, badge: null,   care: "easy",   water: "Very Low", light: "Low",      inStock: true,  rating: 4.7, reviews: 177 },
-  { id: 11, name: "Rosemary",           category: "medicinal", emoji: "🌿", price: 15,  oldPrice: null, badge: null,   care: "easy",   water: "Low",      light: "Full Sun", inStock: true,  rating: 4.8, reviews: 289 },
-  { id: 12, name: "Jade Plant",         category: "succulents",emoji: "💎", price: 28,  oldPrice: null, badge: null,   care: "easy",   water: "Low",      light: "Bright",   inStock: true,  rating: 4.5, reviews: 134 },
+const MOCK_CATEGORIES = [
+    "all",
+    "indoor",
+    "outdoor",
+    "medicinal",
+    "succulents",
 ];
 
-/* ─────────────────────────────────────────────
-   ShopPage — pure UI composition
-   All state / handlers will be wired here later
-───────────────────────────────────────────── */
+const MOCK_PRODUCTS = [
+    { id: 1, name: "Monstera Deliciosa", category: "indoor", price: 45, rating: 4.8, inStock: true, care: "easy" },
+    { id: 2, name: "Fiddle Leaf Fig", category: "indoor", price: 89, rating: 4.5, inStock: true, care: "hard" },
+    { id: 3, name: "Lavender", category: "medicinal", price: 22, rating: 4.9, inStock: true, care: "easy" },
+    { id: 4, name: "Snake Plant", category: "indoor", price: 35, rating: 4.7, inStock: true, care: "easy" },
+    { id: 5, name: "Bird of Paradise", category: "outdoor", price: 120, rating: 4.6, inStock: false, care: "medium" },
+    { id: 6, name: "Echeveria", category: "succulents", price: 18, rating: 4.8, inStock: true, care: "easy" },
+];
+
 export default function ShopPage() {
-  return (
-    <div className="min-h-screen bg-stone-50">
+    const [search, setSearch] = useState("");
+    const [activeCategory, setActiveCategory] = useState("all");
+    const [maxPrice, setMaxPrice] = useState(200);
+    const [activeCare, setActiveCare] = useState([]);
+    const [inStockOnly, setInStockOnly] = useState(false);
+    const [sortBy, setSortBy] = useState("featured");
+    const [viewMode, setViewMode] = useState("grid");
 
-      {/* 1. Page header + active filter chips */}
-      <ShopHeader
-        resultCount={MOCK_PRODUCTS.length}
-        activeTags={["Indoor", "Under €100"]}   
-      />
+    const productCounts = useMemo(() => {
+        const counts = {
+            all: MOCK_PRODUCTS.length,
+        };
 
-      <div className="max-w-7xl mx-auto flex">
+        MOCK_CATEGORIES.forEach((category) => {
+            if (category !== "all") {
+                counts[category] = MOCK_PRODUCTS.filter(
+                    (product) => product.category === category
+                ).length;
+            }
+        });
 
-        {/* 2. Sidebar filter panel */}
-        <ProductFilter
-          categories={MOCK_CATEGORIES}
-          productCounts={MOCK_COUNTS}
-          search=""
-          activeCategory="all"
-          maxPrice={120}
-          activeCare={["easy", "medium"]}
-          inStockOnly={false}
-        />
+        return counts;
+    }, []);
 
-        {/* 3. Right-hand content */}
-        <main className="flex-1 p-6 lg:p-8">
+    const filteredProducts = useMemo(() => {
+        let products = [...MOCK_PRODUCTS];
 
-          {/* 3a. Sort + view-mode toolbar */}
-          <ProductToolbar
-            sidebarOpen={true}
-            sortBy="featured"
-            resultCount={MOCK_PRODUCTS.length}
-            viewMode="grid"
-          />
+        // Search
+        if (search) {
+            products = products.filter((product) =>
+                product.name.toLowerCase().includes(search.toLowerCase())
+            );
+        }
 
-          {/* 3b. Product grid */}
-          <ProductList
-            products={MOCK_PRODUCTS}
-            wishlist={[1, 3]}     
-            addedId={null}
-          />
+        // Category
+        if (activeCategory !== "all") {
+            products = products.filter(
+                (product) => product.category === activeCategory
+            );
+        }
 
-        </main>
-      </div>
-    </div>
-  );
+        // Price
+        products = products.filter(
+            (product) => product.price <= maxPrice
+        );
+
+        // Care Level
+        if (activeCare.length > 0) {
+            products = products.filter((product) =>
+                activeCare.includes(product.care)
+            );
+        }
+
+        // Stock
+        if (inStockOnly) {
+            products = products.filter(
+                (product) => product.inStock
+            );
+        }
+
+        // Sorting
+        switch (sortBy) {
+            case "price-low":
+                products.sort((a, b) => a.price - b.price);
+                break;
+
+            case "price-high":
+                products.sort((a, b) => b.price - a.price);
+                break;
+
+            case "rating":
+                products.sort((a, b) => b.rating - a.rating);
+                break;
+
+            case "name":
+                products.sort((a, b) =>
+                    a.name.localeCompare(b.name)
+                );
+                break;
+
+            default:
+                break;
+        }
+
+        return products;
+    }, [
+        search,
+        activeCategory,
+        maxPrice,
+        activeCare,
+        inStockOnly,
+        sortBy,
+    ]);
+
+    const activeTags = [
+        activeCategory !== "all" ? activeCategory : null,
+        inStockOnly ? "In Stock" : null,
+        ...activeCare,
+    ].filter(Boolean);
+
+    return (
+        <div className="min-h-screen bg-stone-50">
+            <ShopHeader
+                resultCount={filteredProducts.length}
+                activeTags={activeTags}
+            />
+
+            <div className="max-w-7xl mx-auto flex">
+                <ProductFilter
+                    categories={MOCK_CATEGORIES}
+                    productCounts={productCounts}
+                    search={search}
+                    setSearch={setSearch}
+                    activeCategory={activeCategory}
+                    setActiveCategory={setActiveCategory}
+                    maxPrice={maxPrice}
+                    setMaxPrice={setMaxPrice}
+                    activeCare={activeCare}
+                    setActiveCare={setActiveCare}
+                    inStockOnly={inStockOnly}
+                    setInStockOnly={setInStockOnly}
+                />
+
+                <main className="flex-1 p-6 lg:p-8">
+                    <ProductToolbar
+                        sidebarOpen={true}
+                        sortBy={sortBy}
+                        setSortBy={setSortBy}
+                        resultCount={filteredProducts.length}
+                        viewMode={viewMode}
+                        setViewMode={setViewMode}
+                    />
+
+                    <ProductList
+                        products={filteredProducts}
+                        wishlist={[1, 3]}
+                        addedId={null}
+                        viewMode={viewMode}
+                    />
+                </main>
+            </div>
+        </div>
+    );
 }

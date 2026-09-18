@@ -1,10 +1,5 @@
 import { Leaf, Check } from "lucide-react";
 
-/**
- * AuthLeftPanel
- * Props:
- *  - perks : string[]  — bullet points shown below the headline
- */
 
 const DEFAULT_PERKS = [
   "2,400+ happy customers",
@@ -12,7 +7,6 @@ const DEFAULT_PERKS = [
   "Expert care guides included",
 ];
 
-/* Fixed botanical positions so the pattern is consistent (no Math.random) */
 const BOTANICALS = [
   { top: "8%",  left: "12%", size: 80,  rotate: 20  },
   { top: "22%", left: "72%", size: 110, rotate: 145 },
@@ -26,27 +20,8 @@ const BOTANICALS = [
 
 export default function AuthLeftPanel({ perks = DEFAULT_PERKS }) {
   return (
-    <div className="hidden lg:flex flex-col justify-between w-1/2 p-14 relative overflow-hidden bg-green-950">
-
-      {/* ── Botanical background pattern ── */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none select-none">
-        {BOTANICALS.map((b, i) => (
-          <div
-            key={i}
-            className="absolute text-white"
-            style={{
-              top:       b.top,
-              left:      b.left,
-              fontSize:  `${b.size}px`,
-              transform: `rotate(${b.rotate}deg)`,
-            }}
-          >
-            🌿
-          </div>
-        ))}
-      </div>
-
-      {/* ── Logo ── */}
+    <div className="hidden lg:flex flex-col justify-between w-1/2 p-14 relative overflow-hidden bg-green-950"> 
+     
       <div className="relative flex items-center gap-3">
         <div className="w-9 h-9 bg-green-600 rounded-full rounded-bl-none flex items-center justify-center rotate-45">
           <Leaf size={16} className="text-white -rotate-45" />
@@ -54,10 +29,8 @@ export default function AuthLeftPanel({ perks = DEFAULT_PERKS }) {
         <span className="font-serif text-2xl font-light text-white tracking-tight">PlantShop</span>
       </div>
 
-      {/* ── Hero copy ── */}
       <div className="relative">
-        <div className="text-8xl mb-6 select-none">🌿</div>
-
+       
         <h2 className="font-serif text-5xl font-light text-white leading-tight mb-4 tracking-tight">
           Grow your<br />
           <em className="italic text-green-400">green world</em>
